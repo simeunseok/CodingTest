@@ -1,0 +1,23 @@
+class Solution {
+    fun gcd(a: Int, b: Int): Int{
+        if(b==0){
+            return a
+        } else {
+            return gcd(b, a % b)
+        }
+    }
+    fun solution(w: Int, h: Int): Long {
+        var answer: Long = 0       
+        var maxDivisor: Int = 0
+        
+        if (w >= h){
+            maxDivisor = gcd(w, h)
+        } else {
+            maxDivisor = gcd(h, w)
+        }
+        
+        answer = w.toLong() * h.toLong() - (w + h - maxDivisor)
+ 
+        return answer
+    }
+}
