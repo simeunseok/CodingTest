@@ -1,0 +1,41 @@
+import kotlin.math.*
+
+class Solution {
+    fun solution(s: String): Int {
+        var answer: Int = s.length
+        var halfIndex: Int = s.length / 2
+        
+        // 자르는 수의 개수
+        for (i in 1..halfIndex) {
+            var convert: String = ""
+            var temp: String = s.substring(0, i)
+            var count: Int = 1
+            
+            for (j in i until s.length step i) {
+                var compare = ""
+                if(i + j > s.length) {
+                    compare = s.substring(j)
+                } else {
+                    compare = s.substring(j, i + j)
+                }
+                if (temp == compare) {
+                    count++
+                } else {
+                    if (count > 1) {
+                        convert += count.toString()
+                    }
+                    convert += temp
+                    temp = compare
+                    count = 1
+                }
+            }
+            if (count > 1) {
+                convert += count.toString()
+            }
+            convert += temp
+            answer = min(answer, convert.length)
+        }
+        
+        return answer
+    }
+}
