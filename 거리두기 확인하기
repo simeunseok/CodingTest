@@ -1,0 +1,71 @@
+import java.util.*
+
+class Solution {
+    val dy = arrayOf(0, 0, -1, 1)
+    val dx = arrayOf(1, -1, 0, 0)
+    var visit = Array(5) { Array(5) { 0 } }
+    
+    fun clearVisit(visit: Array<Array<Int>>) {
+        for (i in visit) {
+            for (j in i.indices) {
+                i[j] = 0
+            }
+        }
+    }
+    
+    fun bfs(place: Array<String>, j: Int, k: Int): Boolean {
+        val queue: Queue<Pair<Pair<Int, Int>, Int>> = LinkedList()
+        queue.add(Pair(Pair(j, k), 1))        
+        visit[j][k] = 1
+        
+        while(!queue.isEmpty()) {
+            val current = queue.poll()
+            
+            for (i in 0 until 4) {
+                val ny = current.first.first + dy[i]
+                val nx = current.first.second + dx[i]
+                val distance = current.second
+                
+                if (ny < 0 || nx < 0 || ny >= 5 || nx >= 5 || visit[ny][nx] == 1 || distance > 2) {
+                    continue
+                }
+                
+                when (place[ny][nx]) {
+                    'P' -> {
+                        return true
+                    }
+                    'O' -> {
+                        queue.add(Pair(Pair(ny, nx), distance + 1))
+                    }
+                }
+                visit[ny][nx] = 1
+            }
+        }
+        return false
+    }
+    
+    fun solution(places: Array<Array<String>>): IntArray {
+        var answer: IntArray = intArrayOf(0, 0, 0, 0,0)
+        var flag = false
+        
+        for (i in places.indices) {
+            flag = false
+            place@ for (j in places[i].indices) {
+                for (k in places[i][j].indices) {
+                    if (places[i][j][k] == 'P') {
+                        clearVisit(visit)
+                        if (bfs(places[i], j, k)) {
+                            flag = true
+                            break@place
+                        }
+                    }
+                } 
+            }
+            if (!flag) {
+                answer[i] = 1
+            }
+        }
+        
+        return answer
+    }
+}
