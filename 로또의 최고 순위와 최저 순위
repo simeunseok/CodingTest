@@ -1,0 +1,61 @@
+class Solution {
+    fun rank(num: Int): Int {
+        when (num) {
+            2 -> {
+                return 5
+            }
+            3 -> {
+                return 4
+            }
+            4 -> {
+                return 3
+            }
+            5 -> {
+                return 2
+            }
+            6 -> {
+                return 1
+            }
+            else -> {
+                return 6
+            }
+        }
+    }
+    fun solution(lottos: IntArray, win_nums: IntArray): IntArray {
+        var answer: IntArray = intArrayOf(0, 0)
+        var correct = 0
+        var zeroCount = 0
+        var i = 0
+        var j = 0
+        
+        lottos.sort()
+        win_nums.sort()
+        
+        while (true) {
+            if (i >= 6 || j >= 6) {
+                break
+            }
+            if (lottos[i] == 0) {
+                i++
+                zeroCount++
+                continue
+            }
+            else if (lottos[i] == win_nums[j]) {
+                correct++
+                i++
+                j++
+            }
+            else if (lottos[i] > win_nums[j]) {
+                j++
+            }
+            else if (lottos[i] < win_nums[j]) {
+                i++
+            }
+        }
+        
+        answer[0] = rank(correct + zeroCount)
+        answer[1] = rank(correct)
+        
+        return answer
+    }
+}
