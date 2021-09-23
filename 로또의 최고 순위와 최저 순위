@@ -1,26 +1,6 @@
 class Solution {
-    fun rank(num: Int): Int {
-        when (num) {
-            2 -> {
-                return 5
-            }
-            3 -> {
-                return 4
-            }
-            4 -> {
-                return 3
-            }
-            5 -> {
-                return 2
-            }
-            6 -> {
-                return 1
-            }
-            else -> {
-                return 6
-            }
-        }
-    }
+    fun rank(n: Int): Int = if(n < 2) 6 else 7 - n
+    
     fun solution(lottos: IntArray, win_nums: IntArray): IntArray {
         var answer: IntArray = intArrayOf(0, 0)
         var correct = 0
