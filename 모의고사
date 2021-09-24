@@ -1,0 +1,45 @@
+class Solution {
+    fun solution(answers: IntArray): IntArray {
+        var answer: MutableList<Int> = mutableListOf()
+        var corrects = intArrayOf(0, 0, 0)
+        var i = intArrayOf(0, 0, 0)
+        
+        val array = arrayOf(intArrayOf(1,2,3,4,5), 
+                            intArrayOf(2,1,2,3,2,4,2,5), 
+                            intArrayOf(3,3,1,1,2,2,4,4,5,5))
+        
+        for (num in answers) {
+            if (array[0][i[0]] == num) {
+                corrects[0]++
+            }
+            if (array[1][i[1]] == num) {
+                corrects[1]++
+            }
+            if (array[2][i[2]] == num) {
+                corrects[2]++
+            }
+            i[0]++
+            i[1]++
+            i[2]++
+            if (i[0] == array[0].size) {
+                i[0] = 0
+            }
+            if (i[1] == array[1].size) {
+                i[1] = 0
+            }
+            if (i[2] == array[2].size) {
+                i[2] = 0
+            }
+        }
+        
+        var maxNum = corrects.max()
+        
+        for ((index, correct) in corrects.withIndex()) {
+            if (correct == maxNum) {
+                answer.add(index + 1)
+            }
+        }  
+        
+        return answer.toIntArray()
+    }
+}
