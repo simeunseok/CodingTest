@@ -1,0 +1,39 @@
+class Solution {
+    
+    val num = 4000
+    var prime = Array(4001, {0})
+    
+    fun primeNumberSieve() {
+        for (i in 2..num) {
+            prime[i] = i
+        }
+        
+        for (i in 2..num) {
+            if(prime[i] == 0) {
+                continue
+            }
+            for( j in (i+i)..num step(i)) {
+                prime[j] = 0
+            }
+        }
+    } 
+    
+    fun solution(nums: IntArray): Int {
+        var answer = 0
+        val size = nums.size
+        primeNumberSieve()
+        
+        for (i in 0 until size - 2) {
+            for (j in i + 1 until size - 1) {
+                for (k in j + 1 until size) {
+                    val sum = nums[i] + nums[j] + nums[k]
+                    if (prime[sum] != 0) {
+                        answer++
+                    }
+                }
+            }
+        }
+
+        return answer
+    }
+}
