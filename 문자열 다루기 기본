@@ -1,0 +1,19 @@
+class Solution {
+    fun solution(s: String): Boolean {
+        var answer = false
+        var length = s.length
+        val regex = Regex("[a-z]")
+        
+        if (length == 4 || length == 6) {
+            answer = true
+        }
+        
+        val splitArray = s.split(regex)
+        
+        if (splitArray.size >= 2) {
+            answer = false
+        }
+        
+        return answer
+    }
+}
