@@ -1,0 +1,30 @@
+class Solution {
+    fun solution(progresses: IntArray, speeds: IntArray): IntArray {
+        var answer = mutableListOf<Int>()
+        var count = 0
+        var index = 0
+        var day = 1
+        
+        while(true) {
+            if (index >= progresses.size) {
+                if (count != 0) {
+                    answer.add(count)
+                }
+                break  
+            }
+            if (progresses[index] + speeds[index] * day >= 100) {
+                index++
+                count++
+                continue
+            } else {
+                if (count != 0) {
+                    answer.add(count)
+                    count = 0
+                }
+                day++
+            }
+        }
+        
+        return answer.toIntArray()
+    }
+}
